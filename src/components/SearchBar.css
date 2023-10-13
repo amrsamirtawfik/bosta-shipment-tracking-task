@@ -1,0 +1,30 @@
+/* SearchBar.css */
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px;
+  }
+  
+  input[type="text"] {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 8px;
+  }
+  
+  .search-button {
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .search-button i {
+    /* Style the search icon (Font Awesome search icon) */
+    font-size: 16px;
+  }
+  

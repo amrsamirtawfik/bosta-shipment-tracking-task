@@ -1,0 +1,9 @@
+.past-states-table-header-row {
+  background-color: rgb(230, 230, 230);
+  
+  border: 1px solid black;
+  color: rgb(161, 161, 161);
+}
+.rowElement{
+    padding: 10px 60px;
+}
