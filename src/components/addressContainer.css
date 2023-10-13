@@ -1,0 +1,7 @@
+.address-container {
+  background-color: rgb(245, 245, 245);
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 300px;
+  padding: 20px;
+}
