@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux"; // Import connect
 import { toggleLanguage } from "../../redux/languageActions";
 import { setHoveringOnTrackingMenu } from "../../redux/setHoveringOnTrackingMenu";
-import BostaLogo from "../bostaLogo";
+import BostaLogo from "../../assets/images/bostaLogo";
 
 import {
   Nav,
@@ -25,7 +25,7 @@ const Navbar = ({
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
- 
+
 
   const navBarItems = languageData[isArabic ? "ar" : "en"].navBarItems; //check on the lang to pass the correct data
   const navBarPaths = languageData.paths.navBarPaths;
@@ -49,13 +49,11 @@ const Navbar = ({
             onMouseEnter={() => {
               if (item === "Track Your Shipment" || item === "تتبع شحنتك") {
                 setHoveringOnTrackingMenu(true); // Dispatch the action
-                
               }
             }}
             onMouseLeave={() => {
               if (item === "Track Your Shipment" || item === "تتبع شحنتك") {
                 setHoveringOnTrackingMenu(false); // Dispatch the action
-                
               }
             }}
           >
@@ -71,10 +69,11 @@ const Navbar = ({
 
 // Connect the component to the Redux store
 const mapStateToProps = (state) => {
+ 
   return {
-    isArabic: state.isArabic,
-    languageData: state.languageData,
-    isHoveringOnTrackingMenu: state.isHoveringOnTrackingMenu,
+    isArabic: state.centralizedData.isArabic,
+    languageData: state.centralizedData.languageData,
+    isHoveringOnTrackingMenu: state.centralizedData.isHoveringOnTrackingMenu,
     // ... other props if needed
   };
 };

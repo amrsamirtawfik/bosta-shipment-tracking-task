@@ -9,7 +9,17 @@ body {
 .App.isArabic {
   direction: rtl;
 }
+.popup-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .tracking-menu-container {
+  position: fixed;
+  top: 50px;
+  left: 400px;
+  z-index: 999;
   gap: 15px;
   border-radius: 10px;
   border: 1px solid #e4e7ec;
@@ -19,6 +29,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  background: white;
 }
 
 .tracking-menu-container.isArabic {
@@ -29,6 +40,7 @@ body {
 .tracking-menu-container.isEnglish {
   float: right;
 }
+
 
 .App-logo {
   height: 40vmin;

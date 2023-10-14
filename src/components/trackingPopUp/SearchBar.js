@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./SearchBar.css"; // Import your CSS file for styling
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ placeHolder,onSearch }) => {
   const [searchText, setSearchText] = useState("");
 
   const handleSearch = () => {
@@ -12,7 +12,7 @@ const SearchBar = ({ onSearch }) => {
     <div className="search-bar">
       <input
         type="text"
-        placeholder="Search..."
+        placeholder={placeHolder}
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
       />

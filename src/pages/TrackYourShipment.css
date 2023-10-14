@@ -1,5 +1,19 @@
+.track-your-shipment-page{
+  padding:10px 100px;
+}
 .shipment-details {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  
+}
+
+.information-section{
+  display: flex;
+  justify-content: space-between;
+}
+
+.address-question-section{
+  display: flex;
+  flex-direction: column;
 }

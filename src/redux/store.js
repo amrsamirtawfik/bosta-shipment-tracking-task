@@ -1,7 +1,13 @@
-import { createStore } from 'redux';
-import languageReducer from './reducers'; // Update the import path if in a subdirectory
+// store.js
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import languageReducer from './reducers';
+import thunk from 'redux-thunk'; // Import Redux Thunk
 
-// Step 1: Create the store
-const store = createStore(languageReducer);
+const rootReducer = combineReducers({
+  centralizedData: languageReducer
+  // Add other reducers as needed
+});
+
+const store = createStore(rootReducer, applyMiddleware(thunk)); // Apply the Redux Thunk middleware
 
 export default store;

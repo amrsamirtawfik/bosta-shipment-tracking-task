@@ -13,6 +13,7 @@
     border: none;
     outline: none;
     padding: 8px;
+    font-family: 'Cairo',sans-serif;
   }
   
   .search-button {

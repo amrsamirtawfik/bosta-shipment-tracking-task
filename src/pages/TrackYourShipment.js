@@ -4,9 +4,10 @@ import FullTable from "../components/table/fullTable";
 import "./TrackYourShipment.css";
 import IsThereAnyProblems from "../components/IsThereAnyProblems";
 import AddressContainer from "../components/adressContainer";
-import ProgressBarHeader from "../components/ProgressBar/ProgressBarHeader";
-import ProgressTracker from "../components/progressTracker";
-
+import ProgressBar from "../components/ProgressBar/ProgressBar";
+import DoneSvg from "../assets/images/DoneSvg";
+import DelevirySvg from "../assets/images/deleviryIcon";
+import DeleviredSvg from "../assets/images/DeleviredSvg";
 function TrackYourShipment({ isArabic, languageData }) {
   console.log(`
   inside trackYourShipment
@@ -15,23 +16,37 @@ function TrackYourShipment({ isArabic, languageData }) {
     `);
   let headersListOfPastStates = [];
   let tableData = [];
-  let state = {
-    currentStage: 2, // Change this value to the current stage.
-    stagesData: [
+  const progressTrackerConfig = {
+    isArabic: isArabic,
+    activeColor: "#00FF1E",
+    steps: [
       {
-        photo: "stage1.jpg",
+        label: "Step 1",
+        activeStep: <DoneSvg width="40px" height="40px" color="white" />,
+        nonActiveStep: <DoneSvg width="20px" height="20px" color="grey" />,
       },
       {
-        photo: "stage2.jpg",
+        label: "Step 2",
+
+        activeStep: <DoneSvg width="40px" height="40px" color="white" />,
+        nonActiveStep: <DoneSvg width="20px" height="20px" color="grey" />,
       },
       {
-        photo: "stage3.jpg",
+        label: "Step 3",
+
+        activeStep: <DelevirySvg width="40px" height="40px" color="white" />,
+        nonActiveStep: <DelevirySvg width="20px" height="20px" color="grey" />,
       },
       {
-        photo: "stage4.jpg",
+        label: "Step 4",
+
+        activeStep: <DeleviredSvg width="40px" height="40px" color="white" />,
+        nonActiveStep: <DeleviredSvg width="20px" height="20px" color="grey" />,
       },
     ],
+    header: [],
   };
+
   try {
     headersListOfPastStates =
       languageData[isArabic ? "ar" : "en"].pastStatesTable;
@@ -42,26 +57,33 @@ function TrackYourShipment({ isArabic, languageData }) {
       headersListOfPastStates,
       headersListOfPastStates,
     ];
+    progressTrackerConfig.header = [
+      headersListOfPastStates,
+      headersListOfPastStates,
+    ];
   } catch (error) {}
-  return (
-    <div>
-      <div className="shipment-details">
-        <h5>تفاصيل الشحنة</h5>
-        <FullTable headerList={headersListOfPastStates} tableData={tableData} />
-      </div>
-      <ProgressBarHeader
-        progressBarHeader={[headersListOfPastStates, headersListOfPastStates]}
-      />
-      <ProgressTracker
-        currentStage={state.currentStage}
-        stagesData={state.stagesData}
-      />
 
-      <AddressContainer address="امبابة شارع طلعت حرب مدينة العمال بجوار البرنس منزل 17 بلوك 22 Cairo" />
-      <IsThereAnyProblems
-        question="هل لديك مشكلة؟"
-        buttonText="ابلاغ عن مشكلة"
-      />
+  return (
+    <div className="track-your-shipment-page">
+      <ProgressBar progressTrackerConfig={progressTrackerConfig} />
+      <div className="information-section">
+        <div className="shipment-details">
+          <h5>تفاصيل الشحنة</h5>
+          <FullTable
+            headerList={headersListOfPastStates}
+            tableData={tableData}
+          />
+        </div>
+
+        <div className="adress-question-section">
+          <h5>عنوان التسليم</h5>
+          <AddressContainer address="امبابة شارع طلعت حرب مدينة العمال بجوار البرنس منزل 17 بلوك 22 Cairo" />
+          <IsThereAnyProblems
+            question="هل لديك مشكلة؟"
+            buttonText="ابلاغ عن مشكلة"
+          />
+        </div>
+      </div>
     </div>
   );
 }
@@ -69,8 +91,8 @@ function TrackYourShipment({ isArabic, languageData }) {
 // Connect the component to the Redux store
 const mapStateToProps = (state) => {
   return {
-    isArabic: state.isArabic,
-    languageData: state.languageData,
+    isArabic: state.centralizedData.isArabic,
+    languageData: state.centralizedData.languageData,
     // ... other props if needed
   };
 };

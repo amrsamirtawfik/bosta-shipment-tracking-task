@@ -24,8 +24,9 @@ function TrackingMenuContainer(props) {
       <h4>Track your shipment!</h4>
       <SearchBar
         onSearch={(searchText) => {
-          console.log(searchText);
+          props.onSearch(searchText);
         }}
+        placeHolder={props.placeHolder}
       />
     </div>
   );

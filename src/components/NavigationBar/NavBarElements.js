@@ -10,6 +10,7 @@ justify-content: space-between;
 padding: 0.2rem calc((100vw - 1000px) / 2);
 z-index: 12;
 font-weight: 700;
+height:50px;
 
 @media screen and (max-width: 768px) {
 	flex-direction:column;
@@ -54,6 +55,7 @@ export const NavMenu = styled.div`
 display: flex;
 align-items: center;
 margin-right: -24px;
+color:#E30613;
 /* Second Nav */
 /* margin-right: 24px; */
 /* Third Nav */

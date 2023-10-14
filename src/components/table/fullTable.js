@@ -7,8 +7,9 @@ function FullTable(props) {
   return (
     <table className="past-states-table" >
       <PastStatesHeader list={props.headerList} />
-      {props.tableData.map((row) => (
-        <PastStatesNormalRow list={row} />
+      {props.tableData.map((row,index) => (
+        
+        <PastStatesNormalRow list={row} key={index}/>
       ))}
     </table>
   );
