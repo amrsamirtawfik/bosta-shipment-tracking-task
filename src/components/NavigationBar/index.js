@@ -31,7 +31,7 @@ const Navbar = ({
     }
 
     window.addEventListener("resize", handleResize);
-    console.log(isSmallScreen);
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -65,15 +65,19 @@ const Navbar = ({
             onMouseEnter={() => {
               if (item === "Track Your Shipment" || item === "تتبع شحنتك") {
                 setHoveringOnTrackingMenu(true); // Dispatch the action
+                
               }
             }}
             onMouseLeave={() => {
               if (item === "Track Your Shipment" || item === "تتبع شحنتك") {
                 if (!isSmallScreen) setHoveringOnTrackingMenu(false); // Dispatch the action
+                
               }
             }}
             onClick={() => {
-              setHoveringOnTrackingMenu(true);
+              item === "Track Your Shipment" || item === "تتبع شحنتك"
+                ? setHoveringOnTrackingMenu(true)
+                : setHoveringOnTrackingMenu(false);
             }}
           >
             {item}

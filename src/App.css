@@ -18,7 +18,7 @@ body {
 .tracking-menu-container {
   position: fixed;
   top: 50px;
-  left: 400px;
+
   z-index: 999;
   gap: 15px;
   border-radius: 10px;
@@ -31,41 +31,62 @@ body {
   align-items: flex-start;
   background: white;
 }
+.tracking-menu-container.isArabic {
+  left: 400px;
+}
 
-
+.tracking-menu-container.isEnglish {
+  left: 875px;
+}
 @media screen and (max-width: 1300px) {
-  .tracking-menu-container {
+  .tracking-menu-container.isArabic {
     left: 310px;
+  }
+  .tracking-menu-container.isEnglish {
+    left: 825px;
   }
 }
 @media screen and (max-width: 1250px) {
-  .tracking-menu-container {
+  .tracking-menu-container.isArabic {
     left: 250px;
   }
+  
 }
 @media screen and (max-width: 1132px) {
-  .tracking-menu-container {
+  .tracking-menu-container.isArabic {
     left: 200px;
+  }
+  .tracking-menu-container.isEnglish {
+    left: 725px;
   }
 }
 @media screen and (max-width: 1030px) {
-  .tracking-menu-container {
+  .tracking-menu-container.isArabic {
     left: 180px;
+  }
+  .tracking-menu-container.isEnglish {
+    left: 625px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  
+  .tracking-menu-container.isEnglish {
+    left: 525px;
   }
 }
 @media screen and (max-width: 768px) {
-  .tracking-menu-container {
-       
+  .tracking-menu-container.isArabic {
     transform: translate(-50%, -50%);
     position: absolute;
     left: 50%;
     top: 75%;
-    
+  }
+  .tracking-menu-container.isEnglish {
+    left: 250px;
+    top: 550px;
   }
 }
-
-
-
 
 .tracking-menu-container.isArabic {
   float: left;

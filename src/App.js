@@ -1,11 +1,6 @@
 import "./App.css";
 import Navbar from "./components/NavigationBar";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "font-awesome/css/font-awesome.min.css";
 import { connect } from "react-redux";
 import HomePage from "./pages/HomePage";
@@ -34,6 +29,7 @@ function App({
     setOnTrackingMenu(newState);
   };
 
+  
   return (
     <div className={`App ${isArabic ? "isArabic" : ""}`}>
       <Router>
@@ -47,7 +43,6 @@ function App({
             placeHolder={`${isArabic ? "رقم التتبع" : "Tracking Number"}`}
             onSearch={(searchText) => {
               handleSearch(searchText);
-              
             }}
           />
         )}
