@@ -50,7 +50,6 @@ const initialState = {
 };
 
 function languageReducer(state = initialState, action) {
-  console.log(action);
   switch (action.type) {
     case "TOGGLE_LANGUAGE":
       return {
@@ -66,7 +65,21 @@ function languageReducer(state = initialState, action) {
       //handle recevied shipment details here
       let shipmentRes = {
         valid: true,
-        activeColor: "",
+        activeColor: "#CCC",
+        promisedDate: formatDateAndTime(action.payload.PromisedDate).date,
+        trackingNumber: action.payload.TrackingNumber,
+        sellerName: "SOUQ", //assuming it's get from the api
+        CurrentStatus: {
+          ar: "",
+          en: "",
+          date:
+            formatDateAndTime(action.payload.CurrentStatus.timestamp).date +
+            " || " +
+            formatDateAndTime(action.payload.CurrentStatus.timestamp).time,
+        },
+        customerAdress:
+          "امبابة شارع طلعت حرب مدينة العمال بجوار البرنس منزل 17 بلوك 22 Cairo", //assuming it's get from the api
+
         ar: {
           uiStates: [],
           allStates: [],
@@ -76,8 +89,7 @@ function languageReducer(state = initialState, action) {
           allStates: [],
         },
       };
-      let arStateObject,
-        enStateObject = {};
+      let arStateObject, enStateObject;
       let date, time;
 
       if (action.payload.hasOwnProperty("error")) {
@@ -92,7 +104,7 @@ function languageReducer(state = initialState, action) {
                 branch: "مدينة نصر",
                 date: date,
                 time: time,
-                details: "تم إنشاء الشخنة",
+                details: "تم إنشاء الشحنة",
                 addtional: "",
               };
               enStateObject = {
@@ -102,24 +114,24 @@ function languageReducer(state = initialState, action) {
                 details: "Shipment created",
                 addtional: "",
               };
-              shipmentRes.activeColor = "#CCC";
+              shipmentRes.activeColor = "#000";
               shipmentRes.ar.uiStates[0] = arStateObject;
-              shipmentRes.ar.allStates.push = arStateObject;
+              shipmentRes.ar.allStates.push(arStateObject);
               shipmentRes.en.uiStates[0] = enStateObject;
-              shipmentRes.en.allStates.push = enStateObject;
+              shipmentRes.en.allStates.push(enStateObject);
 
               break;
             case "PACKAGE_RECEIVED":
               ({ date, time } = formatDateAndTime(transitEvent.timestamp));
 
-              const arStateObject = {
+              arStateObject = {
                 branch: "مدينة نصر",
                 date: date,
                 time: time,
                 details: "تم استلام الشحنة من التاجر",
                 addtional: "",
               };
-              const enStateObject = {
+              enStateObject = {
                 branch: "Nasr city",
                 date: date,
                 time: time,
@@ -198,13 +210,11 @@ function languageReducer(state = initialState, action) {
                     enStateObject.addtional = "Waiting for customer action";
                 }
               }
-              shipmentRes.ar.uiStates[3].addtional = arStateObject.addtional; //additing this state as an additional to the last state
+              shipmentRes.ar.uiStates[2].addtional = arStateObject.addtional; //additing this state as an additional to the last state
               shipmentRes.activeColor = "#f9ba02";
               shipmentRes.ar.allStates.push(arStateObject);
 
-              shipmentRes.en.uiStates[
-                shipmentRes.en.uiStates.length - 1
-              ].addtional = enStateObject.details;
+              shipmentRes.en.uiStates[2].addtional = enStateObject.addtional;
 
               shipmentRes.en.allStates.push(enStateObject);
 
@@ -229,12 +239,12 @@ function languageReducer(state = initialState, action) {
                 addtional: "",
               };
 
-              shipmentRes.ar.uiStates[3].addtional = arStateObject.details; //additing this state as an additional to the last state
+              shipmentRes.ar.uiStates[2].addtional = arStateObject.details; //additing this state as an additional to the last state
 
               shipmentRes.ar.allStates.push(arStateObject);
               shipmentRes.activeColor = "#E30613";
 
-              shipmentRes.en.uiStates[3].addtional = enStateObject.details;
+              shipmentRes.en.uiStates[2].addtional = enStateObject.details;
               shipmentRes.en.allStates.push(enStateObject);
 
               break;
@@ -280,9 +290,9 @@ function languageReducer(state = initialState, action) {
                 addtional: "",
               };
               shipmentRes.activeColor = "#36b600";
-              shipmentRes.ar.uiStates.push(arStateObject);
+              shipmentRes.ar.uiStates[3] = arStateObject;
               shipmentRes.ar.allStates.push(arStateObject);
-              shipmentRes.en.uiStates.push(enStateObject);
+              shipmentRes.en.uiStates[3] = enStateObject;
               shipmentRes.en.allStates.push(enStateObject);
 
               break;
@@ -290,7 +300,50 @@ function languageReducer(state = initialState, action) {
           }
         }
       }
-      console.log(shipmentRes);
+      switch (action.payload.CurrentStatus.state) {
+        case "TICKET_CREATED":
+          shipmentRes.CurrentStatus.ar = "تم انشاء الشحنة";
+          shipmentRes.CurrentStatus.en = "Shipment created";
+          break;
+
+        case "PACKAGE_RECEIVED":
+          shipmentRes.CurrentStatus.ar = "تم استلام الشحنة";
+          shipmentRes.CurrentStatus.en = "Shipment in store";
+          break;
+        case "IN_TRANSIT":
+          shipmentRes.CurrentStatus.ar = "الشحنة تنتقل لمخزن اخر";
+          shipmentRes.CurrentStatus.en = "Transferring to another store";
+          break;
+        case "OUT_FOR_DELIVERY":
+          shipmentRes.CurrentStatus.ar = "خرجت للتسليم";
+          shipmentRes.CurrentStatus.en = "Out for delivery";
+          break;
+        case "WAITING_FOR_CUSTOMER_ACTION":
+          shipmentRes.CurrentStatus.ar = "لم يتم تسليم الشحنة";
+          shipmentRes.CurrentStatus.en = "Shipment isn't received";
+          break;
+        case "NOT_YET_SHIPPED":
+          shipmentRes.CurrentStatus.ar = "لم يتم تسليم الشحنة";
+          shipmentRes.CurrentStatus.en = "Shipment isn't received";
+          break;
+        case "DELIVERED_TO_SENDER":
+          shipmentRes.CurrentStatus.ar = "تم الغاء الشحنة";
+          shipmentRes.CurrentStatus.en = "Shipment deleted";
+          break;
+        case "CANCELLED":
+          shipmentRes.CurrentStatus.ar = "تم الغاء الشحنة";
+          shipmentRes.CurrentStatus.en = "Shipment deleted";
+          break;
+        case "DELIVERED":
+          shipmentRes.CurrentStatus.ar = "تم استلام الشحنة";
+          shipmentRes.CurrentStatus.en = "Shipment received";
+          break;
+        default:
+          shipmentRes.CurrentStatus.ar = "تم انشاء الشحنة";
+          shipmentRes.CurrentStatus.en = "Shipment created";
+          break;
+      }
+      
       return {
         ...state,
         shipmentData: shipmentRes,

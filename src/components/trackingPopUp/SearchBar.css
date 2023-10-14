@@ -19,6 +19,7 @@
   .search-button {
     background-color: red;
     border: none;
+    border-radius: 8px;
     color: white;
     padding: 8px;
     cursor: pointer;

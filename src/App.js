@@ -1,6 +1,11 @@
 import "./App.css";
 import Navbar from "./components/NavigationBar";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  
+} from "react-router-dom";
 import "font-awesome/css/font-awesome.min.css";
 import { connect } from "react-redux";
 import HomePage from "./pages/HomePage";
@@ -35,14 +40,14 @@ function App({
         <Navbar />
         {(isHoveringOnTrackingMenu || onTrackingMenu) && (
           <TrackingMenuContainer
-          className={`tracking-menu-container ${
-            isArabic ? "isArabic" : "isEnglish"
-          }`}
-          passOnTrackingMenu={handleOnTrackingMenuChange}
-          placeHolder={`${isArabic ? "رقم التتبع" : "Tracking Number"}`}
-          onSearch={(searchText) => {
-            handleSearch(searchText);
-            console.log(shipmentData);
+            className={`tracking-menu-container ${
+              isArabic ? "isArabic" : "isEnglish"
+            }`}
+            passOnTrackingMenu={handleOnTrackingMenuChange}
+            placeHolder={`${isArabic ? "رقم التتبع" : "Tracking Number"}`}
+            onSearch={(searchText) => {
+              handleSearch(searchText);
+              
             }}
           />
         )}
@@ -52,7 +57,10 @@ function App({
           <Route path="/Prices" element={<Prices />} />
           <Route path="/Sales" element={<Sales />} />
           <Route path="/SignIn" element={<SignIn />} />
-          <Route path="/trackYourShipment" element={<TrackYourShipment />} />
+          <Route
+            path="/trackYourShipment/:trackingNumber"
+            element={<TrackYourShipment />}
+          />
         </Routes>
       </Router>
       <header className="App-header"></header>

@@ -1,10 +1,9 @@
 export const shipmentApiRequest = (key) => {
   return (dispatch) => {
-    // Replace 'your-api-endpoint' with the actual API endpoint you want to request
     const apiUrl = `https://tracking.bosta.co/shipments/track/${key}`;
 
-    // Make a GET request to the API
-    fetch(apiUrl)
+    // Return the Promise from fetch
+    return fetch(apiUrl)
       .then((response) => {
         // Check if the response status is OK (status code 200)
         if (!response.ok) {
@@ -15,7 +14,7 @@ export const shipmentApiRequest = (key) => {
       })
       .then((data) => {
         // Data from the API is available here
-        console.log(data);
+        
 
         dispatch({
           type: "TRACKING_SHIPMENT_REQUEST",

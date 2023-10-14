@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import SearchBar from "./SearchBar";
 import "./trackingMenuContainer.css";
+import { useNavigate } from "react-router-dom";
 
 function TrackingMenuContainer(props) {
   const [onTrackingMenu, setOnTrackingMenu] = useState(false);
+  const navigate = useNavigate();
 
   const handleTrackingMenuEnter = () => {
     setOnTrackingMenu(true);
@@ -25,6 +27,7 @@ function TrackingMenuContainer(props) {
       <SearchBar
         onSearch={(searchText) => {
           props.onSearch(searchText);
+          navigate(`/trackYourShipment/${searchText}`);
         }}
         placeHolder={props.placeHolder}
       />

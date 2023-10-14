@@ -1,9 +1,24 @@
 .past-states-table-header-row {
   background-color: rgb(230, 230, 230);
-  
+
   border: 1px solid black;
   color: rgb(161, 161, 161);
 }
-.rowElement{
-    padding: 10px 60px;
+.rowElement {
+  padding: 10px 60px;
+}
+@media screen and (max-width : 800px) {
+  .rowElement{
+    padding: 10px 20px;
+  }
+}
+@media screen and (max-width : 450px) {
+  .rowElement{
+    padding: 10px 10px;
+  }
+}
+@media screen and (max-width : 365px) {
+  .rowElement{
+    padding: 0px;
+  }
 }

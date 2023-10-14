@@ -1,17 +1,30 @@
-import PastStatesHeader from "./PastStatesHeader";
-import PastStatesNormalRow from "./PastStatesNormalRow";
-import "./fullTable.css";
+import React, { useState } from 'react';
+import PastStatesHeader from './PastStatesHeader';
+import PastStatesNormalRow from './PastStatesNormalRow';
+import './fullTable.css';
 
 function FullTable(props) {
-  console.log(props.tableData);
+  const [seeMore, setSeeMore] = useState(false);
+
+  const displayRows = seeMore ? props.tableData : props.tableData.slice(0, 4);
+
   return (
-    <table className="past-states-table" >
-      <PastStatesHeader list={props.headerList} />
-      {props.tableData.map((row,index) => (
-        
-        <PastStatesNormalRow list={row} key={index}/>
-      ))}
-    </table>
+    <div className="full-table-container">
+      <table className="past-states-table">
+        <PastStatesHeader list={props.headerList} />
+        {displayRows.map((row, index) => (
+          <PastStatesNormalRow list={row} key={index} />
+        ))}
+      </table>
+      {props.tableData.length > 4 && (
+        <button
+          className="see-more-button"
+          onClick={() => setSeeMore(!seeMore)}
+        >
+          {seeMore ? 'See Less' : 'See More'}
+        </button>
+      )}
+    </div>
   );
 }
 

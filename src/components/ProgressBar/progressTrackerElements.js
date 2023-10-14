@@ -1,11 +1,28 @@
 import styled from "styled-components";
 
-// Styled components for your ProgressTracker
+export const MainDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  @media (max-width: 768px) {
+    flex-direction: row;
+  }
+`;
+
+export const TextDiv = styled.div`
+  display: flex;
+  padding:10px;
+  justify-content: space-between;
+  padding: 10px 50px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+`;
+
 export const ProgressTrackerUL = styled.ul`
   display: flex;
   align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 8px;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -14,6 +31,16 @@ export const ProgressTrackerUL = styled.ul`
 
 export const ProgressTrackerLI = styled.li`
   list-style: none;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: row;
+  }
+`;
+
+export const stepLabel = styled.p`
   display: flex;
   flex: 1;
   flex-direction: column;

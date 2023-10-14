@@ -21,19 +21,35 @@ const Navbar = ({
   setHoveringOnTrackingMenu,
 }) => {
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const [isSmallScreen, setIsSmallScreen] = React.useState(
+    window.innerWidth < 768
+  );
+
+  React.useEffect(() => {
+    function handleResize() {
+      setIsSmallScreen(window.innerWidth < 768);
+    }
+
+    window.addEventListener("resize", handleResize);
+    console.log(isSmallScreen);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+    if (menuOpen) setHoveringOnTrackingMenu(false);
   };
-
 
   const navBarItems = languageData[isArabic ? "ar" : "en"].navBarItems; //check on the lang to pass the correct data
   const navBarPaths = languageData.paths.navBarPaths;
+
   return (
-    <Nav isArabic={isArabic}>
+    <Nav isArabic={isArabic} isOpen={menuOpen}>
       <Bars className={menuOpen ? "open" : ""} onClick={toggleMenu} />
       <NavLink to="/" className="bostaLogo">
-        <BostaLogo width="100px" height="100px" />
+        <BostaLogo width="100px" height="100px" isPortrait={isSmallScreen} />
       </NavLink>
       <NavMenu isOpen={menuOpen}>
         {navBarItems.map((item, index) => (
@@ -53,8 +69,11 @@ const Navbar = ({
             }}
             onMouseLeave={() => {
               if (item === "Track Your Shipment" || item === "تتبع شحنتك") {
-                setHoveringOnTrackingMenu(false); // Dispatch the action
+                if (!isSmallScreen) setHoveringOnTrackingMenu(false); // Dispatch the action
               }
+            }}
+            onClick={() => {
+              setHoveringOnTrackingMenu(true);
             }}
           >
             {item}
@@ -69,7 +88,6 @@ const Navbar = ({
 
 // Connect the component to the Redux store
 const mapStateToProps = (state) => {
- 
   return {
     isArabic: state.centralizedData.isArabic,
     languageData: state.centralizedData.languageData,

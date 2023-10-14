@@ -3,10 +3,11 @@ import ProgressBarHeader from "./ProgressBarHeader";
 import ProgressTracker from "./progressTracker";
 
 function ProgressBar(props) {
+  
   return (
     <div className="progress-bar">
       <ProgressBarHeader
-        progressBarHeader={props.progressTrackerConfig.header}
+        progressBarHeader={props.progressTrackerConfig}
         className="progress-bar-header-in-full-progress-bar"
       />
       <ProgressTracker

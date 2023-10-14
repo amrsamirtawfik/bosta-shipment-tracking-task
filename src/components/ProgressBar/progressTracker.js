@@ -1,40 +1,47 @@
 import React, { useState } from "react";
 import {
+  MainDiv,
   ProgressTrackerUL,
   ProgressDiv,
   ProgressTrackerLI,
+  TextDiv,
 } from "./progressTrackerElements";
 
 function ProgressTracker({ config }) {
-  const [activeStep, setActiveStep] = useState(1);
-
-  const handleStepClick = (step) => {
-    setActiveStep(step);
-  };
+  const activeStep = config.numberOfActiveSteps;
 
   return (
-    <ProgressTrackerUL>
-      {config.steps.map((step, index) => (
-        <ProgressTrackerLI
-          key={index}
-          onClick={() => handleStepClick(index + 1)}
-        >
-          <ProgressDiv
-            activeColor={
-              activeStep >= index + 1 ? config.activeColor : "#CCCCCC"
-            }
-            className={`item${index + 1}`}
-            dimension={activeStep>=index+1? '50px':'30px'}
-            isArabic={config.isArabic}
-          >
-            {activeStep >= index + 1
-              ? step.activeStep // Render the provided SVG component
-              : step.nonActiveStep}
-          </ProgressDiv>
-          <p className="text">{step.label}</p>
-        </ProgressTrackerLI>
-      ))}
-    </ProgressTrackerUL>
+    <MainDiv>
+      <ProgressTrackerUL>
+        {config.steps.map((step, index) => (
+          <ProgressTrackerLI key={index}>
+            <ProgressDiv
+              activeColor={
+                activeStep >= index + 1 ? config.activeColor : "#CCCCCC"
+              }
+              className={`item${index + 1}`}
+              dimension={activeStep >= index + 1 ? "50px" : "30px"}
+              isArabic={config.isArabic}
+            >
+              {activeStep >= index + 1
+                ? step.activeStep // Render the provided SVG component
+                : step.nonActiveStep}
+            </ProgressDiv>
+          </ProgressTrackerLI>
+        ))}
+      </ProgressTrackerUL>
+      <TextDiv>
+        {config.steps.map((step, index) => (
+          index===2? <div>
+            <p>{step.label}</p>
+            <p style={{color:config.activeColor}}>{config.activeMsg} </p>
+          </div>:
+          <p className="text" key={index}>
+            {step.label}
+          </p>
+        ))}
+      </TextDiv>
+    </MainDiv>
   );
 }
 
