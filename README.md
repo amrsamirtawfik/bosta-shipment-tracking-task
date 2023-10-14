@@ -1,3 +1,10 @@
+# App Screenshots
+![Screenshot from 2023-10-14 22-50-50](https://github.com/amrsamirtawfik/bosta-shipment-tracking-task/assets/85262211/b83d256f-5466-4340-b014-5d85d7e88dd1)
+![Screenshot from 2023-10-14 22-51-33 (1)](https://github.com/amrsamirtawfik/bosta-shipment-tracking-task/assets/85262211/fa21e41e-386f-48c9-8a41-3e3d799c89d3)
+
+# App idea
+A shipment tracking webpage, which shows all the information of the shipment for the customer to track it.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
